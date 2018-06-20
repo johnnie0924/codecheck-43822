@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +20,18 @@ import javax.script.ScriptEngineManager;
 public class App {
 
 	public static void main(String[] args) {
-//		for (int i = 0, l = args.length; i < l; i++) {
-//		String output = String.format("argv[%s]: %s", i, args[i]);
-//		System.out.println(output);
-//	}
-		Map<String, String> resultmap = convert(callGet("http://challenge-server.code-check.io/api/hash?q=" + args[0]));
+		//		for (int i = 0, l = args.length; i < l; i++) {
+		//		String output = String.format("argv[%s]: %s", i, args[i]);
+		//		System.out.println(output);
+		//	}
+		String urlStr = "";
+		try {
+			urlStr = URLEncoder.encode("http://challenge-server.code-check.io/api/hash?q=" + args[0], "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		Map<String, String> resultmap = convert(callGet(urlStr));
 		System.out.println(resultmap.get("hash"));
 
 	}
