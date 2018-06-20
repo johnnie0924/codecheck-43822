@@ -26,12 +26,12 @@ public class App {
 		//	}
 		String urlStr = "";
 		try {
-			urlStr = URLEncoder.encode("http://challenge-server.code-check.io/api/hash?q=" + args[0], "UTF-8");
+			urlStr = URLEncoder.encode(args[0], "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		Map<String, String> resultmap = convert(callGet(urlStr));
+		Map<String, String> resultmap = convert(callGet("http://challenge-server.code-check.io/api/hash?q=" + urlStr));
 		System.out.println(resultmap.get("hash"));
 
 	}
